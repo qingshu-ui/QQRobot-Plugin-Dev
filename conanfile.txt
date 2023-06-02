@@ -1,0 +1,7 @@
+[requires]
+drogon/1.8.3
+protobuf/3.21.1
+zlib/1.2.13
+
+[generators]
+cmake
