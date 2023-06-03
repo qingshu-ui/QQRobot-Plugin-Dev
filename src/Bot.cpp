@@ -272,7 +272,7 @@ std::shared_ptr<cqhttp::CanSendRecordResp> Bot::canSendRecord()
     return sendAndWaitResp<CanSendRecordResp>(record);
 }
 
-void Bot::setFriendAddRequest(std::string &flag, bool approve, std::string &remark)
+void Bot::setFriendAddRequest(std::string &flag, bool approve, const std::string &remark)
 {
     SetFriendAddRequest friend_add_request;
     friend_add_request.set_action(Action::set_friend_add_request);
@@ -285,7 +285,7 @@ void Bot::setFriendAddRequest(std::string &flag, bool approve, std::string &rema
     sendOnly(friend_add_request);
 }
 
-void Bot::setGroupAddRequest(std::string &flag, std::string &type, bool approve, std::string &reason)
+void Bot::setGroupAddRequest(std::string &flag, std::string &type, bool approve, const std::string &reason)
 {
     SetGroupAddRequest group_add_request;
     group_add_request.set_action(Action::set_group_add_request);
@@ -427,7 +427,7 @@ void Bot::setGroupAdmin(int64_t group_id, int64_t user_id, bool enable)
     sendOnly(m_set_group_admin);
 }
 
-void Bot::setGroupCard(int64_t group_id, int64_t user_id, std::string &card)
+void Bot::setGroupCard(int64_t group_id, int64_t user_id, const std::string &card)
 {
     SetGroupCard m_set_group_card;
     m_set_group_card.set_action(Action::set_group_card);
@@ -440,7 +440,7 @@ void Bot::setGroupCard(int64_t group_id, int64_t user_id, std::string &card)
     sendOnly(m_set_group_card);
 }
 
-void Bot::setGroupSpecialTitle(int64_t group_id, int64_t user_id, std::string &special_title, uint32_t duration)
+void Bot::setGroupSpecialTitle(int64_t group_id, int64_t user_id, const std::string &special_title, uint32_t duration)
 {
     SetGroupSpecialTitle m_special_title;
     m_special_title.set_action(Action::set_group_special_title);

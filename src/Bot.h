@@ -208,7 +208,7 @@ public:
      * @param approve 是否同意请求
      * @param remark 添加后的好友备注（仅在同意时有效）
      */
-    void setFriendAddRequest(std::string &flag, bool approve = true, std::string &remark = std::string(""));
+    void setFriendAddRequest(std::string &flag, bool approve = true, const std::string &remark = std::string(""));
 
     /**
      * @brief 处理加群请求／邀请
@@ -217,7 +217,7 @@ public:
      * @param approve 是否同意请求／邀请
      * @param reason 拒绝理由（仅在拒绝时有效）
      */
-    void setGroupAddRequest(std::string &flag, std::string &type, bool approve = true, std::string &reason = std::string(""));
+    void setGroupAddRequest(std::string &flag, std::string &type, bool approve = true, const std::string &reason = std::string(""));
 
     /**
      * @brief 获取群信息
@@ -299,7 +299,7 @@ public:
      * @param user_id 要设置的 QQ 号
      * @param card 群名片内容, 不填或空字符串表示删除群名片
      */
-    void setGroupCard(int64_t group_id, int64_t user_id, std::string &card = std::string(""));
+    void setGroupCard(int64_t group_id, int64_t user_id, const std::string &card = std::string(""));
 
     /**
      * @brief 设置群组专属头衔
@@ -309,7 +309,7 @@ public:
      * @param duration 专属头衔有效期, 单位秒, -1 表示永久, 不过此项似乎没有效果, 可能是只有某些特殊的时间长度有效, 有待测试
      */
     void setGroupSpecialTitle(int64_t group_id, int64_t user_id,
-                              std::string &special_title = std::string(""), uint32_t duration = -1);
+                              const std::string &special_title = std::string(""), uint32_t duration = -1);
 
     /**
      * @brief 群单人禁言
