@@ -603,7 +603,7 @@ void Bot::delGroupFile(int64_t group_id, std::string &file_id, int32_t busid)
     sendOnly(m_del_group_file);
 }
 
-void Bot::createGroupFileFolder(int64_t group_id, std::string &name, std::string &parent_id)
+void Bot::createGroupFileFolder(int64_t group_id, std::string &name, const std::string &parent_id)
 {
     CreateGroupFileFolder m_create_folder;
     m_create_folder.set_action(Action::create_group_file_folder);

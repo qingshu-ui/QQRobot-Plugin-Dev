@@ -420,7 +420,7 @@ public:
      * @param name 文件夹名称
      * @param parent_id 仅能为 /
      */
-    void createGroupFileFolder(int64_t group_id, std::string &name, std::string &parent_id = std::string("/"));
+    void createGroupFileFolder(int64_t group_id, std::string &name, const std::string &parent_id = std::string("/"));
 
     /**
      * @brief 删除群文件文件夹
@@ -470,7 +470,7 @@ public:
      * https://github.com/Mrs4s/go-cqhttp/compare
      * @param domain 需要获取 cookies 的域名
      */
-    std::shared_ptr<cqhttp::GetCookiesResp> getCookies(std::string &domain = std::string("")) = delete;
+    std::shared_ptr<cqhttp::GetCookiesResp> getCookies(const std::string &domain = std::string("")) = delete;
 
     /**
      * @brief 获取 CSRF Token
@@ -485,7 +485,7 @@ public:
      * https://github.com/Mrs4s/go-cqhttp/compare
      * @param domain 需要获取 cookies 的域名
      */
-    std::shared_ptr<cqhttp::GetCredentialsResp> getCredentials(std::string &domain = std::string("")) = delete;
+    std::shared_ptr<cqhttp::GetCredentialsResp> getCredentials(const std::string &domain = std::string("")) = delete;
 
     /**
      * @brief 获取版本信息
