@@ -1,17 +1,15 @@
 #ifndef PLUGINDEV_PLUGIN_H
 #define PLUGINDEV_PLUGIN_H
 
-#ifdef _WIN32
-#define EXPORT_API __declspec(dllexport)
-#else
-#define EXPORT_API
-#endif // EXPORT_API
+
 
 #include <iostream>
-#include "protos/cqhttp_event.pb.h"
+#include <memory>
 #include "Bot.h"
+#include "protos/cqhttp_event.pb.h"
+#include "logger.h"
 
-class Plugin
+class EXPORT_API Plugin
 {
 public:
     std::string plugin_name;

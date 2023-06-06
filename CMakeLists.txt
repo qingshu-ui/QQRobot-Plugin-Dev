@@ -2,8 +2,9 @@ cmake_minimum_required(VERSION 3.26.3)
 project(PluginDev)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-file(GLOB_RECURSE SOURCES src/*.cpp src/*.h src/*.cc)
+file(GLOB_RECURSE PluginDev_SOURCES src/*.cpp src/*.h src/*.cc)
 
 if(NOT _MY_CUSTOM_BUILD)
     message("====================Conan install===================")
@@ -17,15 +18,19 @@ if(NOT _MY_CUSTOM_BUILD)
     else()
         message(FATAL_ERROR "Conan install failed, Return code: ${CONAN_RESULT}")
     endif()
-    # 包含 Conan 构建信息
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup(TARGETS)
 endif()
 
 
-add_library(${PROJECT_NAME} STATIC ${SOURCES})
+add_library(${PROJECT_NAME} SHARED ${PluginDev_SOURCES})
 
-set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "libplugindev")
+if(MSVC)
+    message("-- Set msvc runtime")
+    set_property(TARGET ${PROJECT_NAME} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
+endif()
 
-target_link_libraries(${PROJECT_NAME} PUBLIC CONAN_PKG::protobuf)
-target_link_libraries(${PROJECT_NAME} PUBLIC CONAN_PKG::drogon)
+
+find_package(PROTOBUF CONFIG REQUIRED)
+find_package(DROGON CONFIG REQUIRED)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC protobuf::protobuf)
+target_link_libraries(${PROJECT_NAME} PUBLIC Drogon::Drogon)

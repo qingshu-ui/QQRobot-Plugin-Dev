@@ -6,10 +6,11 @@
 #include <future>
 #include <drogon/WebSocketConnection.h>
 #include "protos/cqhttp_api.pb.h"
+#include "logger.h"
 
 typedef std::map<std::string, std::shared_ptr<std::promise<std::string>>> PromiseMap;
 
-class Bot
+class EXPORT_API Bot
 {
 public:
     int64_t self_id;

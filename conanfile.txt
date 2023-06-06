@@ -4,4 +4,13 @@ protobuf/3.21.1
 zlib/1.2.13
 
 [generators]
-cmake
+CMakeDeps
+CMakeToolchain
+
+[options]
+drogon*:shared=True
+protobuf*:shared=True
+
+[imports]
+bin, *.dll -> ./lib
+bin, *.so -> ./lib

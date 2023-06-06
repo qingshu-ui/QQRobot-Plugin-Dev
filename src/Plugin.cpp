@@ -1,4 +1,5 @@
 #include "Plugin.h"
+#include "Bot.h"
 
 Plugin::Plugin() = default;
 
