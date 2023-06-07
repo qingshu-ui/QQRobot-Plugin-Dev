@@ -5,7 +5,7 @@
 #include <google/protobuf/util/json_util.h>
 #include <future>
 #include <drogon/WebSocketConnection.h>
-#include "protos/cqhttp_api.pb.h"
+#include "cqhttp_api.pb.h"
 #include "logger.h"
 
 typedef std::map<std::string, std::shared_ptr<std::promise<std::string>>> PromiseMap;

@@ -1,36 +1,33 @@
-cmake_minimum_required(VERSION 3.26.3)
+cmake_minimum_required(VERSION 3.0.0)
 project(PluginDev)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-file(GLOB_RECURSE PluginDev_SOURCES src/*.cpp src/*.h src/*.cc)
 
-if(NOT _MY_CUSTOM_BUILD)
-    message("====================Conan install===================")
-    execute_process(
-        COMMAND conan install ${CMAKE_SOURCE_DIR} -of ${CMAKE_BINARY_DIR} --build missing -s build_type=Debug
-        RESULT_VARIABLE CONAN_RESULT 
-    )
-
-    if(CONAN_RESULT EQUAL 0)
-        message("================Conan install succeeded===============")
-    else()
-        message(FATAL_ERROR "Conan install failed, Return code: ${CONAN_RESULT}")
-    endif()
+# Import Post_Protocol sub library.
+if(NOT POST_PROTOCOL_SOURCE_DIR AND NOT POST_PROTOCOL_BINARY_DIR)
+    set(POST_PROTOCOL_SOURCE_DIR "C:\\Users\\17186\\Documents\\VisualCodeProjects\\Post-Protocol")
+    set(POST_PROTOCOL_BINARY_DIR "C:\\Users\\17186\\Documents\\VisualCodeProjects\\Post-Protocol\\build")
+    include_directories(${POST_PROTOCOL_SOURCE_DIR}/src)
+    add_subdirectory(${POST_PROTOCOL_SOURCE_DIR} ${POST_PROTOCOL_BINARY_DIR})
 endif()
 
 
+file(GLOB_RECURSE PluginDev_SOURCES src/*.cpp src/*.h src/*.cc)
 add_library(${PROJECT_NAME} SHARED ${PluginDev_SOURCES})
 
 if(MSVC)
-    message("-- Set msvc runtime")
-    set_property(TARGET ${PROJECT_NAME} PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
+    set_property(TARGET PluginDev PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
 endif()
 
 
 find_package(PROTOBUF CONFIG REQUIRED)
 find_package(DROGON CONFIG REQUIRED)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC protobuf::protobuf)
-target_link_libraries(${PROJECT_NAME} PUBLIC Drogon::Drogon)
+include_directories(${CMAKE_SOURCE_DIR}/lib/Post_Protocol/${CMAKE_BUILD_TYPE}/include)
+link_directories(${CMAKE_SOURCE_DIR}/lib/Post_Protocol/${CMAKE_BUILD_TYPE}/lib)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE protobuf::protobuf)
+target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon)
+target_link_libraries(${PROJECT_NAME} PRIVATE Post_Protocol)

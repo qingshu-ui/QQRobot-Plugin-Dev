@@ -6,7 +6,7 @@
 #include <iostream>
 #include <memory>
 #include "Bot.h"
-#include "protos/cqhttp_event.pb.h"
+#include "cqhttp_event.pb.h"
 #include "logger.h"
 
 class EXPORT_API Plugin
