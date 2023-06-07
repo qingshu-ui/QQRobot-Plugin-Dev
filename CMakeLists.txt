@@ -7,8 +7,8 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Import Post_Protocol sub library.
 if(NOT POST_PROTOCOL_SOURCE_DIR AND NOT POST_PROTOCOL_BINARY_DIR)
-    set(POST_PROTOCOL_SOURCE_DIR "C:\\Users\\17186\\Documents\\VisualCodeProjects\\Post-Protocol")
-    set(POST_PROTOCOL_BINARY_DIR "C:\\Users\\17186\\Documents\\VisualCodeProjects\\Post-Protocol\\build")
+    set(POST_PROTOCOL_SOURCE_DIR "Post_Protocol")
+    set(POST_PROTOCOL_BINARY_DIR "Post_Protocol\\build")
     include_directories(${POST_PROTOCOL_SOURCE_DIR}/src)
     add_subdirectory(${POST_PROTOCOL_SOURCE_DIR} ${POST_PROTOCOL_BINARY_DIR})
 endif()
