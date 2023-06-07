@@ -21,12 +21,8 @@ if(MSVC)
     set_property(TARGET PluginDev PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
 endif()
 
-
 find_package(PROTOBUF CONFIG REQUIRED)
 find_package(DROGON CONFIG REQUIRED)
-
-include_directories(${CMAKE_SOURCE_DIR}/lib/Post_Protocol/${CMAKE_BUILD_TYPE}/include)
-link_directories(${CMAKE_SOURCE_DIR}/lib/Post_Protocol/${CMAKE_BUILD_TYPE}/lib)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE protobuf::protobuf)
 target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon)
