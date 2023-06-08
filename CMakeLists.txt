@@ -22,7 +22,7 @@ if(MSVC)
 endif()
 
 find_package(PROTOBUF CONFIG REQUIRED)
-find_package(DROGON CONFIG REQUIRED)
+find_package(Drogon CONFIG REQUIRED)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE protobuf::protobuf)
 target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon)
