@@ -156,7 +156,8 @@ public:
      * @param message 自定义转发消息, 具体看
      * https://docs.go-cqhttp.org/cqcode/#%E5%90%88%E5%B9%B6%E8%BD%AC%E5%8F%91%E6%B6%88%E6%81%AF%E8%8A%82%E7%82%B9
      */
-    std::shared_ptr<cqhttp::SendGroupForwardMsgResp> sendGroupForwardMsg(int64_t group_id, std::string &message);
+    std::shared_ptr<cqhttp::SendGroupForwardMsgResp> sendGroupForwardMsg(int64_t group_id,
+                                                                         std::vector<cqhttp::ForwardMessage> &message);
 
     /**
      * @brief 发送合并转发 ( 好友 )

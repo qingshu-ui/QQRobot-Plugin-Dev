@@ -192,13 +192,20 @@ std::shared_ptr<cqhttp::GetForwardMsgResp> Bot::getForwardMsg(std::string &messa
     return sendAndWaitResp<GetForwardMsgResp, GetForwardMsg>(forward_msg);
 }
 
-std::shared_ptr<cqhttp::SendGroupForwardMsgResp> Bot::sendGroupForwardMsg(int64_t group_id, std::string &message)
+std::shared_ptr<cqhttp::SendGroupForwardMsgResp> Bot::sendGroupForwardMsg(int64_t group_id, std::vector<cqhttp::ForwardMessage> &message)
 {
     SendGroupForwardMsg send_forward_msg;
     send_forward_msg.set_action(Action::send_group_forward_msg);
     SendGroupForwardMsg_Params *params = new SendGroupForwardMsg_Params;
     params->set_group_id(group_id);
-    params->set_message(message);
+    for (size_t i = 0; i < message.size(); i++)
+    {
+        auto *forward_msg = params->add_messages();
+        std::string type = message.at(i).type();
+        auto *data = new ForwardMessage_Data(message.at(i).data());
+        forward_msg->set_type(type);
+        forward_msg->set_allocated_data(data);
+    }
     send_forward_msg.set_allocated_params(params);
 
     return sendAndWaitResp<SendGroupForwardMsgResp, SendGroupForwardMsg>(send_forward_msg);
@@ -743,7 +750,7 @@ inline std::shared_ptr<T1> Bot::sendAndWaitResp(T2 &data, int64_t time_out)
     bot_mutex.lock();
     this->conn_ptr->send(message_str, drogon::WebSocketMessageType::Text);
     bot_mutex.unlock();
-
+    // LOG(INFO) << message_str;
     auto promise_ptr = std::make_shared<std::promise<std::string>>();
     promise_map->insert({echo_str, promise_ptr});
 
@@ -754,8 +761,10 @@ inline std::shared_ptr<T1> Bot::sendAndWaitResp(T2 &data, int64_t time_out)
     auto resp_str = m_future.get();
     auto resp_ptr = std::make_shared<T1>();
 
-    if (!JsonStringToMessage(resp_str, resp_ptr.get(), bot_parse_options).ok())
+    if (!JsonStringToMessage(resp_str, resp_ptr.get(), bot_parse_options).ok()){
         LOG(WARN) << "Failed to parse echo to google message.";
+        LOG(INFO) << resp_str;
+    }
 
     return resp_ptr;
 }
