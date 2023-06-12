@@ -15,12 +15,11 @@ add_library(${PROJECT_NAME} SHARED ${PLUGINDEV_SOURCE})
 find_package(protobuf CONFIG REQUIRED)
 find_package(Drogon CONFIG REQUIRED)
 
-# Import Post_Protocol sub library.
-if(NOT protocol)
+if(NOT PROTOCOL_ADDED)
+    message("------------------${protocol}")
     add_subdirectory(protocol)
     include_directories(protocol/src)
 endif()
-
 
 target_link_libraries(${PROJECT_NAME} PRIVATE protobuf::protobuf)
 target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon)
